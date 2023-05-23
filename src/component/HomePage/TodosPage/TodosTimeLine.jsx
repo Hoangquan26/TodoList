@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateTodos } from '../OnGoingTask/todosSlice';
+import { updateTodos, updateTodoStatusThunk } from '../OnGoingTask/todosSlice';
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 import TimelapseRoundedIcon from '@mui/icons-material/TimelapseRounded';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
@@ -30,8 +30,9 @@ const TodosTimeLine = ({todos}) => {
                         <div className=' ml-6'>
                         {value.todo ? 
                         <div onClick={() => {
-                                dispatch(updateTodos({
-                                    id: value.todo.id
+                                dispatch(updateTodoStatusThunk({
+                                    id: value.todo.id,
+                                    status: value.todo.status === 'success' ? 'pending' :  value.todo.status === 'pending' ? 'on task' : 'success'
                                 }))
                             }} className={` p-2 pr-6 text-sm text-white rounded-3xl flex items-center justify-center ${value.todo.status == 'success' ? ' bg-emerald-500' : value.todo.status == 'pending' ? 'bg-blue-300' : ' bg-rose-500'}`}>
                             <div className=' mr-2 rounded-full bg-white h-6 w-6 text-black'>

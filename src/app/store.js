@@ -6,6 +6,6 @@ export const store = configureStore({
     reducer : {
         filter: filterSlice,
         todos: todosSlice,
-        page: pageSlice
+        page: pageSlice,
     }
 })

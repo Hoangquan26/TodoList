@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useSelector } from 'react-redux'
-import { TodosSelector } from '../OnGoingTask/todosSlice';
+import React, { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import {  TodosSelector } from '../OnGoingTask/todosSlice';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import TodosWeekArea from './TodosWeekArea';
 import dayjs from 'dayjs';
@@ -12,6 +12,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import TodosTimeLine from './TodosTimeLine';
 import AddForm from './AddTodoForm';
+import { DatePicker, StaticDatePicker } from '@mui/x-date-pickers';
 const months = [
     'January',
     'February',
@@ -31,6 +32,7 @@ const TodosPage = () => {
     const [today, setToday] = useState(new Date())
     const [onCalender, setOnCalender] = useState(false)
     const [onAddForm, setOnAddForm] = useState(false)
+    const dispatch = useDispatch()
     let value;
     useMemo(() => {
         value = dayjs(today)
@@ -51,7 +53,7 @@ const TodosPage = () => {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DateCalendar', 'DateCalendar']}>
                         <DemoItem>
-                            <DateCalendar value={value} onChange={(newValue) => {
+                            <StaticDatePicker value={value} onChange={(newValue) => {
                                 setToday(new Date(newValue))
                                 setOnCalender(false)
                                 }} />
@@ -64,7 +66,7 @@ const TodosPage = () => {
     }
     else if(onAddForm) {
         return(
-            <AddForm setOnAddForm={setOnAddForm}></AddForm>
+            <AddForm setOnAddForm={setOnAddForm} today={today}></AddForm>
         )
     }
     else {

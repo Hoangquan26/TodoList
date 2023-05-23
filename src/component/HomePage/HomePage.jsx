@@ -7,12 +7,14 @@ import OnGoingTask from './OnGoingTask/OnGoingTask';
 import { useDispatch, useSelector } from 'react-redux';
 import { pageSelector } from '../pageSlice';
 import TodosPage from './TodosPage/TodosPage';
+import { getTodosThunk } from './OnGoingTask/todosSlice';
 const HomePage = () => {
     const [style, setStyle] = useState('opacity-0')
     const dispatch = useDispatch()
     const ref = useRef(null)
     const page = useSelector(pageSelector)
     useEffect(() => {
+        dispatch(getTodosThunk())
         anime({
             targets: ref.current,
             duration: 1000,

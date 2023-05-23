@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TaskItem from './TaskItem';
 import { TodosSelector } from './todosSlice';
 import { useSelector } from 'react-redux'
@@ -6,7 +6,7 @@ import { goTodos } from '../../pageSlice';
 import { useDispatch } from 'react-redux';
 const OnGoingTask = () => {
     const dispatch = useDispatch()
-    const taskList = useSelector(TodosSelector)
+    let taskList =  useSelector(TodosSelector)
     return (
         <div className=' flex flex-col mt-10'>
             <div className=' flex justify-between items-center'>
