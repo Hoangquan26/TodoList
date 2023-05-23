@@ -13,7 +13,9 @@ const AddTodosForm = ({setOnAddForm, today}) => {
     const [text, setText] = useState('')
     const [timePicker, setTimePicker] = useState(today)
     const [nameAlert, setNameAlert] = useState(false)
-    const [timeAlert, setTimeAlert] = useState(false)
+    const [timeAlert, setTimeAlert] = useState(
+        todos.some(todo => new Date(todo.time).getDate() === timePicker.getDate() && new Date(todo.time).getHours() === timePicker.getHours())
+        ||timePicker.getTime() < new Date().getTime())
     const dispatch = useDispatch()
     console.log(timePicker)
     const handleSubmit = (e) => {
@@ -34,17 +36,19 @@ const AddTodosForm = ({setOnAddForm, today}) => {
 
     const handleChangeTime = e => {
         if(todos.some(todo => new Date(todo.time).getDate() === e.$d.getDate() && new Date(todo.time).getHours() === e.$d.getHours())){
-            alert("You had a work in this time !")
             setTimeAlert(true)
             return
+        }
+        else {
+            setTimeAlert(false)
         }
         setTimePicker(e.$d)
     }
     return(
-        <div className=' bg-white fixed top-0 left-0 h-full w-full flex items-center justify-center'> 
+        <div className=' bg-white fixed top-0 left-0 h-full w-full flex items-center justify-center p-6'> 
             <form onSubmit={(e) => {
                 handleSubmit(e)
-            }} className=' flex flex-col'>
+            }} className=' flex flex-col w-full'>
                 <div className=' flex items-center justify-between mb-10'>
                     <CloseRoundedIcon onClick={() => setOnAddForm(false)} className=' hover:text-rose-500'></CloseRoundedIcon>
                     <span>Add new task:</span>
@@ -64,7 +68,7 @@ const AddTodosForm = ({setOnAddForm, today}) => {
                         </DemoItem>
                     </DemoContainer>
                 </LocalizationProvider>
-                    <span className={`${timeAlert ? 'text-rose-500': ' '} mt-2 text-sm`}>{timeAlert ? 'You had a task on this time!' : ''}</span>
+                    <span className={`${timeAlert ? 'text-rose-500': ' '} mt-2 text-sm`}>{timeAlert ? 'You had a work in this time or your time is not accepted !' : ''}</span>
                 <button className=' p-4 rounded-xl bg-rose-500 text-white mt-6'>Confirm</button>
             </form>
         </div>
