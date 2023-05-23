@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react';
-import Carousel from './carousel';
 import { goHome } from '../pageSlice';
 import { useDispatch } from 'react-redux';
+import Carousel from './Carousel'
 const StartPage = () => {
     const [animate, setAnimate] = useState(false)
     const dispatch = useDispatch()
