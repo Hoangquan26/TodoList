@@ -95,7 +95,7 @@ const StartPage = () => {
     }, [timeline])
 
     return (
-        <div className={` fixed font-medium left-0 top-0 w-full h-full flex flex-col p-6`}>
+        <div className={` font-medium left-0 top-0 w-full h-full flex flex-col p-6`}>
             <h4 className=' '>Taskoo</h4>
             <div className=' min-h-[580px] flex items-center justify-center'>
             {contentComponent}

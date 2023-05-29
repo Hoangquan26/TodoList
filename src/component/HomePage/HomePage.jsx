@@ -5,7 +5,7 @@ import anime from 'animejs/lib/anime.es.js';
 import CategoriesArea from './CategoriesArea/CategoriesArea';
 import OnGoingTask from './OnGoingTask/OnGoingTask';
 import { useDispatch, useSelector } from 'react-redux';
-import { pageSelector } from '../pageSlice';
+import { goStart, pageSelector } from '../pageSlice';
 import TodosPage from './TodosPage/TodosPage';
 import { freeTodosSlice, getTodosThunk, TodosStatusSelector } from './OnGoingTask/todosSlice';
 import { currentUserSelector } from '../userSlice';
@@ -29,6 +29,9 @@ const HomePage = () => {
             dispatch(freeTodosSlice())
     }, [status])
     useEffect(() => {
+        if(!currentUSer) {
+            dispatch(goStart())
+        }
         if(status == 'idle') {
             dispatch(getTodosThunk(currentUSer.id))
         }
