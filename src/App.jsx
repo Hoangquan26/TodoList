@@ -1,11 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import HomePage from './component/HomePage/HomePage'
 import StartPage from './component/StartPage/StartPage'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { pageSelector } from './component/pageSlice'
+import { getCurrentUser } from './component/userSlice'
 function App() {
   const page = useSelector(pageSelector)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getCurrentUser())
+  },[])
   switch(page) {
     case 'Home':
       return (

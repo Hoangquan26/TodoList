@@ -9,9 +9,12 @@ const pageSlice = createSlice({
         },
         goTodos: (state, action) => {
             return 'Todos'
+        },
+        gOTodoInfo: (state) => {
+            return 'TodoInfo'
         }
     }
 })
 export const pageSelector = (state) => state.page
-export const { goHome, goTodos } = pageSlice.actions
+export const { goHome, goTodos, gOTodoInfo } = pageSlice.actions
 export default pageSlice.reducer

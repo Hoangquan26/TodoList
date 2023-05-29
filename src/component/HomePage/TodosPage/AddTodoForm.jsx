@@ -5,19 +5,19 @@ import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useDispatch, useSelector } from 'react-redux'
-import { addTodos, addTodosThunk, TodosSelector } from '../OnGoingTask/todosSlice';
+import { addTodosThunk, TodosSelector } from '../OnGoingTask/todosSlice';
 import { nanoid } from '@reduxjs/toolkit';
+import { currentUserSelector } from '../../userSlice';
 const AddTodosForm = ({setOnAddForm, today}) => {
-    const todos = useSelector(TodosSelector)
-    console.log(todos)
     const [text, setText] = useState('')
     const [timePicker, setTimePicker] = useState(today)
     const [nameAlert, setNameAlert] = useState(false)
+    const todos = useSelector(TodosSelector)
+    const currentUser = useSelector(currentUserSelector)
     const [timeAlert, setTimeAlert] = useState(
         todos.some(todo => new Date(todo.time).getDate() === timePicker.getDate() && new Date(todo.time).getHours() === timePicker.getHours())
         ||timePicker.getTime() < new Date().getTime())
     const dispatch = useDispatch()
-    console.log(timePicker)
     const handleSubmit = (e) => {
         e.preventDefault()
         if(!text){
@@ -29,7 +29,9 @@ const AddTodosForm = ({setOnAddForm, today}) => {
         dispatch(addTodosThunk({
             id: nanoid(),
             name: text,
-            time: timePicker.toLocaleString()
+            time: timePicker.toLocaleString(),
+            userID: currentUser.id,
+            status: 'pending'
         }))
         setOnAddForm(false)
     }
@@ -69,7 +71,7 @@ const AddTodosForm = ({setOnAddForm, today}) => {
                     </DemoContainer>
                 </LocalizationProvider>
                     <span className={`${timeAlert ? 'text-rose-500': ' '} mt-2 text-sm`}>{timeAlert ? 'You had a work in this time or your time is not accepted !' : ''}</span>
-                <button className=' p-4 rounded-xl bg-rose-500 text-white mt-6'>Confirm</button>
+                <button disabled={timeAlert} className={`${timeAlert ? ' bg-slate-300' : ''} transition-all p-4 rounded-xl bg-rose-500 text-white mt-6`}>Confirm</button>
             </form>
         </div>
     )
