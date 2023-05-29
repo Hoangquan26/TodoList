@@ -7,7 +7,7 @@ import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 import StartContent from './StartContent';
 import LoginContent from './LoginContent';
 import Register from './Register/Register';
-import { currentUserSelector } from '../userSlice';
+import { currentUserSelector, getCurrentUser } from '../userSlice';
 import Welcome from './Welcome';
 const timelineStatus = [
     {

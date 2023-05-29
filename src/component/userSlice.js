@@ -27,6 +27,7 @@ const userSlice = createSlice({
                 if(subString.indexOf('user=') == 0) {
                     userInfo = subString.substring(5, allCookie[i].length)
                 }
+                console.log(userInfo)
             }
             return {
                 ...state,
